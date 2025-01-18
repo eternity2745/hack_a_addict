@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hack_a_addict/Utilities/stateManagement.dart';
 import 'package:provider/provider.dart';
@@ -62,14 +64,33 @@ class _IssueScreenState extends State<IssueScreen> {
             ),
             Center(
               child: ElevatedButton(
-                onPressed: () {}, 
-                child: Text("See Location In Map"),
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                 ),
+                child: const Text("See Location In Map"),
                 ),
             ),
-            
+            SizedBox(height: 0.37.h,),
+            if (Provider.of<StateManagement>(context, listen: false).selectedReport['image'] != "")...{
+              Text("Image",
+              style: TextStyle(
+                fontSize: 0.37.dp,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                ),
+                child: const Text("See Image"),
+                ),
+            ),
+            } else...{
+              SizedBox()
+            }
           ],
         ),
       ),

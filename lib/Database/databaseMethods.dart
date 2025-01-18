@@ -70,6 +70,14 @@ class DatabaseMethods {
 
   Future<QuerySnapshot> getReports(int userID) async {
     return await database.collection("reports").where("userID", isEqualTo: userID).get();
-    
+  }
+
+  Future changePassword(email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
