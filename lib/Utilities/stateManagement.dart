@@ -19,6 +19,8 @@ class StateManagement with ChangeNotifier {
   int wrongAnswers = 0;
   List<Map<String, dynamic>> userReports = [];
   Map<String, dynamic> selectedReport = {};
+  String quote = "";
+  String author = "";
 
   void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
     if (userID != null) {
@@ -70,6 +72,11 @@ class StateManagement with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateQuote(String quote, String author) {
+    this.quote = quote;
+    this.author = author;
+    notifyListeners();
+  }
   getQuizQuestions() {
     quizQuestions.shuffle();
     return quizQuestions.getRange(0, 10).toList();

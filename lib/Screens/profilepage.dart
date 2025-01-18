@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack_a_addict/Database/databaseMethods.dart';
+import 'package:hack_a_addict/Screens/loginscreen.dart';
 import 'package:hack_a_addict/Utilities/stateManagement.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -25,11 +26,47 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  logoutUser() async {
+    await DatabaseMethods().logout();
+    if (mounted) {
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()), (Route<dynamic> route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(
+                  title: Text("Logout"),
+                  content: Text("Are You Sure You Want To Logout?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }, 
+                      child: Text("No")
+                      ),
+                    TextButton(
+                      onPressed: () {
+                        logoutUser();
+                      }, 
+                      child: Text("Yes")
+                      )
+                  ],
+                );
+              }
+                );
+            },
+            child: Icon(Icons.logout_rounded)
+            ),
+          SizedBox(width: 4.w,),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 3.w),

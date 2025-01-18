@@ -55,16 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getQuotes() async {
-    // if (Provider.of<StateManagement>(context, listen: false).quote != "") {
-
-    // }
+    if (Provider.of<StateManagement>(context, listen: false).quote != "") {
+      DocumentSnapshot result = await DatabaseMethods().getQuote();
+      log("${result.data()}");
+    }
   }
 
   @override
   void initState() {
     super.initState();
     getQuizQuestions();
-    //getQuotes();
+    getQuotes();
     getUserReports();
   }
 

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:random_string/random_string.dart';
 
 class DatabaseMethods {
 
@@ -10,6 +11,11 @@ class DatabaseMethods {
 
   FirebaseFirestore database = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  getcurrentUser() async {
+    // ignore: await_only_futures
+    return await auth.currentUser;
+  }
 
   Future userLogin(String email, String password) async {
     try {
@@ -78,6 +84,20 @@ class DatabaseMethods {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<DocumentSnapshot> getQuote() async {
+    int id = randomBetween(1, 20);
+    DocumentSnapshot result = await database.collection("quotes").doc("$id").get();
+    return result;
+  }
+
+  Future logout() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      log("$e");
     }
   }
 }

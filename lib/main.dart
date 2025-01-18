@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hack_a_addict/Database/databaseMethods.dart';
+import 'package:hack_a_addict/Screens/homescreen.dart';
 import 'package:hack_a_addict/Screens/loginscreen.dart';
 import 'package:hack_a_addict/Utilities/stateManagement.dart';
 import 'package:hack_a_addict/firebase_options.dart';
@@ -8,7 +10,7 @@ import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
@@ -30,7 +32,17 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const LoginScreen(),
+      //   home: FutureBuilder(
+      //   future: DatabaseMethods().getcurrentUser(),
+      //   builder: (context, AsyncSnapshot<dynamic> snapshot) {
+      //     if (snapshot.hasData) {
+      //       return HomeScreen();
+      //     }else{
+      //       return LoginScreen();
+      //     }
+      //   }
+      //  ),
+      home: LoginScreen()
       ),
     )
     );

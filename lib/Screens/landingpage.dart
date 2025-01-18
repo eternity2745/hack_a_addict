@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hack_a_addict/Screens/AssistantScreen.dart';
 import 'package:hack_a_addict/Screens/quizScreen.dart';
+import 'package:hack_a_addict/Screens/rehabScreen.dart';
 import 'package:hack_a_addict/Screens/reportIncident.dart';
 import 'package:sizer/sizer.dart';
 
@@ -79,28 +81,33 @@ class _LandingPageState extends State<LandingPage> with AutomaticKeepAliveClient
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.blue.shade400,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black87,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      )
-                    ]
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Rehabilitation Centers",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 0.31.dp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                      )
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => RehabMap()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.blue.shade400,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black87,
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        )
+                      ]
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Rehabilitation Centers",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 0.31.dp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
                     ),
                   ),
                 ),
@@ -154,28 +161,33 @@ class _LandingPageState extends State<LandingPage> with AutomaticKeepAliveClient
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.blue.shade400,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black87,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      )
-                    ]
-                  ),
-                  child: Center(
-                    child: Text(
-                      "AI Assistant",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 0.31.dp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                      )
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AssistantScreen()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.blue.shade400,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black87,
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        )
+                      ]
+                    ),
+                    child: Center(
+                      child: Text(
+                        "AI Assistant",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 0.31.dp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
                     ),
                   ),
                 )

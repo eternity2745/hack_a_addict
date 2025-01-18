@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
          await DatabaseMethods().addUserInfo({
             "username": usernameController.text,
             "email": emailController.text,
-            "profilePic" : "https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-black-png-image_3918427.jpg",
+            "profilePic" : "https://www.pinclipart.com/picdir/big/218-2189254_free-online-avatars-kid-characters-family-vector-for.png",
             "reports" : 0,
             "highScore" : 0,
             "id" : DateTime.now().millisecondsSinceEpoch
