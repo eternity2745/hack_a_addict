@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_a_addict/Database/databaseMethods.dart';
 import 'package:hack_a_addict/Screens/homescreen.dart';
 import 'package:hack_a_addict/Screens/signupscreen.dart';
+import 'package:hack_a_addict/Utilities/stateManagement.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,7 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Invaild Login Credentials")));
       }    
     } else {
+      QuerySnapshot details = await DatabaseMethods().getUserInfo(emailController.text);
+      String username = "${details.docs[0]["username"]}";
+      String photo = "${details.docs[0]["profilePic"]}";
+      int userID= details.docs[0]['id'];
+      int highScore = details.docs[0]['highScore'];
+      int reports = details.docs[0]['reports'];
+      String id = details.docs[0].id;
       if (mounted) {
+        Provider.of<StateManagement>(context, listen: false).updateUserInfo(email: emailController.text, username: username, userID: userID, profilePic: photo, quizHighScore: highScore, reports: reports, id : id);
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => HomeScreen()),
           (Route<dynamic> route) => false,

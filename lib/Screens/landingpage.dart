@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hack_a_addict/Screens/quizScreen.dart';
 import 'package:hack_a_addict/Screens/reportIncident.dart';
 import 'package:sizer/sizer.dart';
 
@@ -103,28 +104,53 @@ class _LandingPageState extends State<LandingPage> with AutomaticKeepAliveClient
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.blue.shade400,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black87,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      )
-                    ]
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Quiz",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 0.31.dp,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                      )
+                GestureDetector(
+                  onTap: () {
+                    showDialog(context: context, builder: (context) {
+                      return AlertDialog(
+                        title: Text("Start Quiz?"),
+                        content: Text("The questions for the quiz will be based on drug addiction and its effects"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("No"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => QuizScreen()));
+                            },
+                            child: Text("Yes"),
+                          )
+                        ],
+                      );
+                    });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.blue.shade400,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black87,
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        )
+                      ]
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Quiz",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 0.31.dp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
                     ),
                   ),
                 ),

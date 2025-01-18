@@ -2,10 +2,48 @@ import 'package:flutter/cupertino.dart';
 
 class StateManagement with ChangeNotifier {
   
-  String reportLocationAddress = "";
+  String reportLocationAddress = "Pick Location";
+  List<double> reportLocationCoordinates = [];
+  int userID= 0;
+  String id = "";
+  String email = "";
+  String username = "";
+  int reports = 0;
+  int quizHighScore = 0;
+  String profilePic = "";
+
+  void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
+    if (userID != null) {
+      this.userID = userID;
+    }
+    if (email != null) {
+      this.email = email;
+    }
+    if (username != null) {
+      this.username = username;
+    }
+    if (reports != null) {
+      this.reports = reports;
+    }
+    if (quizHighScore != null) {
+      this.quizHighScore = quizHighScore;
+    }
+    if (profilePic != null) {
+      this.profilePic = profilePic;
+    }
+    if (id != null) {
+      this.id = id;
+    }
+    notifyListeners();
+
+  }
 
   void setReportLocationAddress(String address) {
     reportLocationAddress = address;
     notifyListeners();
+  }
+
+  void setReportLocationCoordinates(List<double> coordinates) {
+    reportLocationCoordinates = coordinates;
   }
 }

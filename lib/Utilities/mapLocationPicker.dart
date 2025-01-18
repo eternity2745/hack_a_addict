@@ -32,6 +32,7 @@ class _MapSampleState extends State<MapSample> {
       var first = addresses.first;
       if (mounted) {
        Provider.of<StateManagement>(context, listen: false).setReportLocationAddress("${first.street}, ${first.locality}, ${first.country}");
+       Provider.of<StateManagement>(context, listen: false).setReportLocationCoordinates([latitude, longitude]);
        Navigator.of(context).pop();
       }
     }
