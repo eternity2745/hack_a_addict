@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hack_a_addict/Database/databaseMethods.dart';
@@ -23,23 +22,34 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
 
   getQuizQuestions() async {
-    QuerySnapshot questions = await DatabaseMethods().getQuizQuestions();
-    List<Map<String, dynamic>> quizQuestions = [];
 
-    for (var i in questions.docs) {
-      quizQuestions.add(i.data() as Map<String, dynamic>);
+    if(Provider.of<StateManagement>(context, listen: false).quizQuestions.isNotEmpty) {
+      QuerySnapshot questions = await DatabaseMethods().getQuizQuestions();
+      List<Map<String, dynamic>> quizQuestions = [];
+
+      for (var i in questions.docs) {
+        quizQuestions.add(i.data() as Map<String, dynamic>);
+      }
+      log("$quizQuestions");
+
+      if (mounted) {
+        Provider.of<StateManagement>(context, listen: false).setQuizQuestions(quizQuestions);
+      }
     }
 
-    if (mounted) {
-      Provider.of<StateManagement>(context, listen: false).setQuizQuestions(quizQuestions);
-    }
+  }
 
+  getQuotes() async {
+    // if (Provider.of<StateManagement>(context, listen: false).quote != "") {
+
+    // }
   }
 
   @override
   void initState() {
     super.initState();
     getQuizQuestions();
+    //getQuotes();
   }
 
   int selectedIndex = 0;

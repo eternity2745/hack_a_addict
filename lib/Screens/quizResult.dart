@@ -1,58 +1,36 @@
-import 'dart:developer';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:hack_a_addict/Screens/quizScore.dart';
 import 'package:hack_a_addict/Utilities/stateManagement.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+class QuizResults extends StatefulWidget {
+  const QuizResults({super.key});
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  State<QuizResults> createState() => _QuizResultsState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizResultsState extends State<QuizResults> {
 
-
-  List<Map<String, dynamic>> quizQuestions = [];
   List<Map<String, dynamic>> quizResults = [];
-
-  Color colorb1 = Colors.black26;
-  Color colorb2 = Colors.black26;
-  Color colorb3 = Colors.black26;
-  Color colorb4 = Colors.black26;
-
-
-  getQuizQuestions() {
-    quizQuestions = Provider.of<StateManagement>(context, listen: false).getQuizQuestions();
-    setState(() {
-      
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getQuizQuestions();
-  }
-
+  int questionIndex = 0;
   PageController controller = PageController();
   String correctAnswer = "";
   String question = "";
-  String selectedAnswer = "";
-  List<String> options = [];
-  int selectedOption = -1;
-  int questionIndex = 0;
+
+  @override 
+  void initState() {
+    super.initState();
+    quizResults = Provider.of<StateManagement>(context, listen: false).quizResults;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Quiz"),
+        title: Text("Quiz Analysis"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -97,8 +75,8 @@ class _QuizScreenState extends State<QuizScreen> {
                             itemCount: 10,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              correctAnswer = quizQuestions[questionIndex]['a'];
-                              question = quizQuestions[questionIndex]['q'];
+                              correctAnswer = quizResults[questionIndex]['a'];
+                              question = quizResults[questionIndex]['q'];
                               return Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                                 child: SingleChildScrollView(
@@ -134,28 +112,20 @@ class _QuizScreenState extends State<QuizScreen> {
                                               children: [
                                                 ElevatedButton(
                                                       onPressed: () {
-                                                        colorb1 = Colors.green;
-                                                        colorb2 = Colors.black26;
-                                                        colorb3 = Colors.black26;
-                                                        colorb4 = Colors.black26;
-                                                        selectedAnswer = quizQuestions[questionIndex]['o1'];
-                                                        setState(() {
-                                                          
-                                                        });
                                                       }, 
                                                       style: ButtonStyle(
                                                         fixedSize: WidgetStateProperty.all(Size(100.w, 1.7.h)),
                                                         backgroundColor: WidgetStateProperty.all(Colors.transparent),
                                                         shape: WidgetStateProperty.all(RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(14),
-                                                          side: BorderSide(color: colorb1, width: 3.0)
+                                                          side: BorderSide(color: quizResults[questionIndex]['sa'] == "None" ? Colors.black26 : quizResults[questionIndex]['o1'] == correctAnswer ? Colors.green : quizResults[questionIndex]['o1'] == quizResults[questionIndex]['sa'] ? Colors.red : Colors.black26, width: 3.0)
                                                         ))
                                                       ),
                                                       child: Align(
                                                         alignment: Alignment.centerLeft,
                                                         child: FittedBox(
                                                           fit: BoxFit.contain,
-                                                          child: Text(quizQuestions[questionIndex]['o1'], style: TextStyle(
+                                                          child: Text(quizResults[questionIndex]['o1'], style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 0.32.dp
                                                           ),
@@ -167,28 +137,20 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 SizedBox(height: 1.h,),
                                                 ElevatedButton(
                                                       onPressed: () {
-                                                        colorb1 = Colors.black26;
-                                                        colorb2 = Colors.green;
-                                                        colorb3 = Colors.black26;
-                                                        colorb4 = Colors.black26;
-                                                        selectedAnswer = quizQuestions[questionIndex]['o2'];
-                                                        setState(() {
-                                                          
-                                                        });
                                                       }, 
                                                       style: ButtonStyle(
                                                         fixedSize: WidgetStateProperty.all(Size(100.w, 1.7.h)),
                                                         backgroundColor: WidgetStateProperty.all(Colors.transparent),
                                                         shape: WidgetStateProperty.all(RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(14),
-                                                          side: BorderSide(color: colorb2, width: 3.0)
+                                                          side: BorderSide(color: quizResults[questionIndex]['sa'] == "None" ? Colors.black26 : quizResults[questionIndex]['o2'] == correctAnswer ? Colors.green : quizResults[questionIndex]['o2'] == quizResults[questionIndex]['sa'] ? Colors.red : Colors.black26, width: 3.0)
                                                         ))
                                                       ),
                                                       child: Align(
                                                         alignment: Alignment.centerLeft,
                                                         child: FittedBox(
                                                           fit: BoxFit.contain,
-                                                          child: Text(quizQuestions[questionIndex]['o2']
+                                                          child: Text(quizResults[questionIndex]['o2']
                                                           ,
                                                           style: TextStyle(
                                                             color: Colors.white,
@@ -202,28 +164,20 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 SizedBox(height: 1.h,),
                                                 ElevatedButton(
                                                       onPressed: () {
-                                                        colorb1 = Colors.black26;
-                                                        colorb2 = Colors.black26;
-                                                        colorb3 = Colors.green;
-                                                        colorb4 = Colors.black26;
-                                                        selectedAnswer = quizQuestions[questionIndex]['o3'];
-                                                        setState(() {
-                                                          
-                                                        });
                                                       }, 
                                                       style: ButtonStyle(
                                                         fixedSize: WidgetStateProperty.all(Size(100.w, 1.7.h)),
                                                         backgroundColor: WidgetStateProperty.all(Colors.transparent),
                                                         shape: WidgetStateProperty.all(RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(14),
-                                                          side: BorderSide(color: colorb3, width: 3.0)
+                                                          side: BorderSide(color: quizResults[questionIndex]['sa'] == "None" ? Colors.black26 : quizResults[questionIndex]['o3'] == correctAnswer ? Colors.green : quizResults[questionIndex]['o3'] == quizResults[questionIndex]['sa'] ? Colors.red : Colors.black26, width: 3.0)
                                                         ))
                                                       ),
                                                       child: Align(
                                                         alignment: Alignment.centerLeft,
                                                         child: FittedBox(
                                                           fit: BoxFit.contain,
-                                                          child: Text(quizQuestions[questionIndex]['o3'], style: TextStyle(
+                                                          child: Text(quizResults[questionIndex]['o3'], style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 0.32.dp
                                                           ),
@@ -235,28 +189,21 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 SizedBox(height: 1.h),
                                                 ElevatedButton(
                                                       onPressed: () {
-                                                        colorb1 = Colors.black26;
-                                                        colorb2 = Colors.black26;
-                                                        colorb3 = Colors.black26;
-                                                        colorb4 = Colors.green;
-                                                        selectedAnswer = quizQuestions[questionIndex]['o4'];
-                                                        setState(() {
-                                                          
-                                                        });
+                                                        
                                                       }, 
                                                       style: ButtonStyle(
                                                         fixedSize: WidgetStateProperty.all(Size(100.w, 1.7.h)),
                                                         backgroundColor: WidgetStateProperty.all(Colors.transparent),
                                                         shape: WidgetStateProperty.all(RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(14),
-                                                          side: BorderSide(color: colorb4, width: 3.0)
+                                                          side: BorderSide(color: quizResults[questionIndex]['sa'] == "None" ? Colors.black26 : quizResults[questionIndex]['o4'] == correctAnswer ? Colors.green : quizResults[questionIndex]['o4'] == quizResults[questionIndex]['sa'] ? Colors.red : Colors.black26, width: 3.0)
                                                         ))
                                                       ),
                                                       child: Align(
                                                         alignment: Alignment.centerLeft,
                                                         child: FittedBox(
                                                           fit: BoxFit.contain,
-                                                          child: Text(quizQuestions[questionIndex]['o4'], style: TextStyle(
+                                                          child: Text(quizResults[questionIndex]['o4'], style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 0.32.dp
                                                           ),
@@ -285,55 +232,12 @@ class _QuizScreenState extends State<QuizScreen> {
                               duration: Duration(milliseconds: 500), 
                               curve: Curves.fastLinearToSlowEaseIn
                             );
-                          
-                          if ([colorb1, colorb2, colorb3, colorb4].any((element) => element == Colors.green)) {
-                            if (selectedAnswer == correctAnswer) {
-                              Provider.of<StateManagement>(context, listen: false).updateCorrectAnswers();
-                            }else{
-                              Provider.of<StateManagement>(context, listen: false).updateWrongAnswers();
-                            }
-                          }else{
-                            selectedAnswer = "None";
-                          }
-                          quizResults.add({
-                            "q" : question,
-                            "a" : correctAnswer,
-                            "sa" : selectedAnswer,
-                            "o1" : quizQuestions[questionIndex]['o1'],
-                            "o2" : quizQuestions[questionIndex]['o2'],
-                            "o3" : quizQuestions[questionIndex]['o3'],
-                            "o4" : quizQuestions[questionIndex]['o4'],
-                          });
-                          colorb1 = Colors.black26;
-                          colorb2 = Colors.black26;
-                          colorb3 = Colors.black26;
-                          colorb4 = Colors.black26;
                           questionIndex++;
                           setState(() {
                             
                           });
-
                         }else{
-                          if ([colorb1, colorb2, colorb3, colorb4].any((element) => element == Colors.green)) {
-                            if (selectedAnswer == correctAnswer) {
-                              Provider.of<StateManagement>(context, listen: false).updateCorrectAnswers();
-                            }else{
-                              Provider.of<StateManagement>(context, listen: false).updateWrongAnswers();
-                            }
-                          }else{
-                            selectedAnswer = "None";
-                          }
-                          quizResults.add({
-                            "q" : question,
-                            "a" : correctAnswer,
-                            "sa" : selectedAnswer,
-                            "o1" : quizQuestions[questionIndex]['o1'],
-                            "o2" : quizQuestions[questionIndex]['o2'],
-                            "o3" : quizQuestions[questionIndex]['o3'],
-                            "o4" : quizQuestions[questionIndex]['o4'],
-                          });
-                          Provider.of<StateManagement>(context, listen: false).setQuizResults(quizResults);
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => QuizScore()));
+                          Navigator.of(context).pop();
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -343,7 +247,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                         backgroundColor: Colors.blue.shade100,
                       ),
-                      child: questionIndex <= 8 ? Text("Next") : Text("Submit")
+                      child: questionIndex <= 8 ? Text("Next") : Text("End")
                     )
             ],
           ),

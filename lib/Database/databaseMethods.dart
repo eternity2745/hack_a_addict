@@ -58,4 +58,13 @@ class DatabaseMethods {
       return false;
     }
   }
+
+  Future updateHighScore(Map<String, dynamic> highScore, String id) async {
+    try {
+      await database.collection("users").doc(id).update(highScore);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

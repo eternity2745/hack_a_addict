@@ -14,6 +14,9 @@ class StateManagement with ChangeNotifier {
   int quizHighScore = 0;
   String profilePic = "";
   List<Map<String, dynamic>> quizQuestions = [];
+  List<Map<String, dynamic>> quizResults = [];
+  int correctAnswers = 0;
+  int wrongAnswers = 0;
 
   void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
     if (userID != null) {
@@ -57,7 +60,18 @@ class StateManagement with ChangeNotifier {
 
   getQuizQuestions() {
     quizQuestions.shuffle();
-    log("$quizQuestions");
     return quizQuestions.getRange(0, 10).toList();
+  }
+
+  void setQuizResults(List<Map<String, dynamic>> quizResults) {
+    this.quizResults = quizResults;
+  }
+
+  void updateCorrectAnswers() {
+    correctAnswers++;
+  }
+
+  void updateWrongAnswers() {
+    wrongAnswers++;
   }
 }
