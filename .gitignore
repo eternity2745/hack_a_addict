@@ -48,3 +48,4 @@ keys.json
 AndroidManifest.xml
 /android/app/src/main/*.xml
 android
+/android
