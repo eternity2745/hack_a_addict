@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hack_a_addict/Database/databaseMethods.dart';
+import 'package:hack_a_addict/Screens/homescreen.dart';
+import 'package:hack_a_addict/Screens/signupscreen.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +12,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  userLogin() async {
+    bool result = await DatabaseMethods().userLogin(emailController.text, passwordController.text);
+
+    if (result == false) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Invaild Login Credentials")));
+      }    
+    } else {
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          (Route<dynamic> route) => false,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Form(
                       child: 
                       TextFormField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           hintText: "Email",
                           hintStyle: TextStyle(
@@ -64,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Form(
                       child: 
                       TextFormField(
+                        controller: passwordController,
                         decoration: InputDecoration(
                           hintText: "Password",
                           hintStyle: TextStyle(
@@ -87,7 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 4.h),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        userLogin();
+                      },
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(50.w, 6.h),
                         shape: RoundedRectangleBorder(
@@ -102,7 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 5.h),
               ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+                      },
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(50.w, 6.h),
                         shape: RoundedRectangleBorder(
