@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hack_a_addict/Utilities/mapLocationPicker.dart';
+import 'package:hack_a_addict/Utilities/stateManagement.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ReportIncidentScreen extends StatefulWidget {
@@ -15,7 +19,17 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  
+  Future<void> readJson() async {
+  final String response = await rootBundle.loadString('keys.json');
+  final data = await json.decode(response);
+  log(data[0]['maps']);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,22 +75,26 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
             SizedBox(height: 3.h),
             GestureDetector(
               onTap: () {
-                log("Tapped");  // Add code to pick location
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MapSample()));// Add code to pick location
               },
-              child: TextField(
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.location_on_outlined),
-                  suffixIconColor: Colors.black54,
-                  hintText: "Pick Incident Location",
-                  enabled: false,
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(color: Colors.black54)
+              child: Consumer<StateManagement>(
+                builder: (context, value, child) {  
+                return TextField(
+                  decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.location_on_outlined),
+                    suffixIconColor: Colors.black54,
+                    hintText: value.reportLocationAddress,
+                    enabled: false,
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.black54)
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)
+                    )
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15)
-                  )
-                ),
+                );
+                }
               ),
             ),
             SizedBox(height: 3.h),
