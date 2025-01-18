@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 class StateManagement with ChangeNotifier {
@@ -11,7 +13,7 @@ class StateManagement with ChangeNotifier {
   int reports = 0;
   int quizHighScore = 0;
   String profilePic = "";
-  List<Object?> quizQuestions = [];
+  List<Map<String, dynamic>> quizQuestions = [];
 
   void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
     if (userID != null) {
@@ -48,13 +50,14 @@ class StateManagement with ChangeNotifier {
     reportLocationCoordinates = coordinates;
   }
 
-  void setQuizQuestions(List<Object?> questions) {
+  void setQuizQuestions(List<Map<String, dynamic>> questions) {
     quizQuestions = questions;
     notifyListeners();
   }
 
   getQuizQuestions() {
     quizQuestions.shuffle();
-    return quizQuestions.getRange(0, 11);
+    log("$quizQuestions");
+    return quizQuestions.getRange(0, 10).toList();
   }
 }

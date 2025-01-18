@@ -6,6 +6,8 @@ import 'package:hack_a_addict/Database/databaseMethods.dart';
 import 'package:hack_a_addict/Screens/landingpage.dart';
 import 'package:hack_a_addict/Screens/profilepage.dart';
 import 'package:hack_a_addict/Screens/reportspage.dart';
+import 'package:hack_a_addict/Utilities/stateManagement.dart';
+import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:sizer/sizer.dart';
 
@@ -22,11 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getQuizQuestions() async {
     QuerySnapshot questions = await DatabaseMethods().getQuizQuestions();
-    List<Object?> quizQuestions = [];
+    List<Map<String, dynamic>> quizQuestions = [];
 
     for (var i in questions.docs) {
-      quizQuestions.add(i.data());
+      quizQuestions.add(i.data() as Map<String, dynamic>);
     }
+
+    if (mounted) {
+      Provider.of<StateManagement>(context, listen: false).setQuizQuestions(quizQuestions);
+    }
+
   }
 
   @override
