@@ -11,6 +11,7 @@ class StateManagement with ChangeNotifier {
   int reports = 0;
   int quizHighScore = 0;
   String profilePic = "";
+  List<Object?> quizQuestions = [];
 
   void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
     if (userID != null) {
@@ -45,5 +46,15 @@ class StateManagement with ChangeNotifier {
 
   void setReportLocationCoordinates(List<double> coordinates) {
     reportLocationCoordinates = coordinates;
+  }
+
+  void setQuizQuestions(List<Object?> questions) {
+    quizQuestions = questions;
+    notifyListeners();
+  }
+
+  getQuizQuestions() {
+    quizQuestions.shuffle();
+    return quizQuestions.getRange(0, 11);
   }
 }

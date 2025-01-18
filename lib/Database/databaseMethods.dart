@@ -45,6 +45,10 @@ class DatabaseMethods {
     return await database.collection("users").where("email", isEqualTo: email).get();
   }
 
+  Future<QuerySnapshot> getQuizQuestions() async {
+    return await database.collection("quiz").get();
+  }
+
   Future addUserReport(Map<String, dynamic> reportInfo, String reportID, String id) async {
     try {
       log("Adding");
