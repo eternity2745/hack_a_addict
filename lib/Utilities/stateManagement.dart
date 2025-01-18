@@ -17,6 +17,8 @@ class StateManagement with ChangeNotifier {
   List<Map<String, dynamic>> quizResults = [];
   int correctAnswers = 0;
   int wrongAnswers = 0;
+  List<Map<String, dynamic>> userReports = [];
+  Map<String, dynamic> selectedReport = {};
 
   void updateUserInfo({int? userID, String? email, String? username, int? reports, int? quizHighScore, String? profilePic, String? id}) {
     if (userID != null) {
@@ -42,6 +44,16 @@ class StateManagement with ChangeNotifier {
     }
     notifyListeners();
 
+  }
+
+  void updateSelectedReport(Map<String, dynamic> report) {
+    selectedReport = report;
+    notifyListeners();
+  }
+
+  void updateUserReports(reports) {
+    userReports = reports;
+    notifyListeners();
   }
 
   void setReportLocationAddress(String address) {

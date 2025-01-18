@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getQuizQuestions() async {
 
-    if(Provider.of<StateManagement>(context, listen: false).quizQuestions.isNotEmpty) {
+    if(Provider.of<StateManagement>(context, listen: false).quizQuestions.isEmpty) {
       QuerySnapshot questions = await DatabaseMethods().getQuizQuestions();
       List<Map<String, dynamic>> quizQuestions = [];
 
@@ -39,6 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
+  getUserReports() async {
+    if (Provider.of<StateManagement>(context, listen: false).userReports.isEmpty) {
+      QuerySnapshot result = await DatabaseMethods().getReports(Provider.of<StateManagement>(context, listen: false).userID);
+      List<Map<String, dynamic>> userReports = [];
+      
+      for (var i in result.docs) {
+        userReports.add(i.data() as Map<String, dynamic>);
+      }
+      log("$userReports");
+      if (mounted) {
+        Provider.of<StateManagement>(context, listen: false).updateUserReports(userReports);
+      }
+    }
+  }
+
   getQuotes() async {
     // if (Provider.of<StateManagement>(context, listen: false).quote != "") {
 
@@ -50,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getQuizQuestions();
     //getQuotes();
+    getUserReports();
   }
 
   int selectedIndex = 0;
