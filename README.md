@@ -1,4 +1,4 @@
-#NavaJeev
+# NavaJeev
 This app was made for Hack-A-Addict competition which aimed at building apps targeted at anti-drug addiction. 
 
 NavaJeev has features such as reporting an incident, searching for nearby rehabs, ai assistant, quiz games for engaging youth.
