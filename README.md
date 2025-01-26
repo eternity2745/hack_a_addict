@@ -1,16 +1,14 @@
-# hack_a_addict
+# NavaJeev
+This app was made for the 24 hour Hack-A-Addict hackathon which aimed at building apps targeted at anti-drug addiction. 
 
-A new Flutter project.
+NavaJeev has features such as reporting an incident, searching for nearby rehabs, ai assistant, quiz games for engaging youth.
 
-## Getting Started
+This project has another part for authorities which comes as a separate app to be distributed among police officers. The police officers can view incidents reported within the range of their respective police stations. By using this strategy police officers will be able to tackle incidents more actively and will help in reducing drug addiction among the youth.
 
-This project is a starting point for a Flutter application.
+## hack_a_addict
 
-A few resources to get you started if this is your first Flutter project:
+The User App
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## hack_a_addict_authority
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app for authorities

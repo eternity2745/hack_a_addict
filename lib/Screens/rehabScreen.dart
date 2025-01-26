@@ -75,7 +75,7 @@ class RehabMapState extends State<RehabMap> {
 
   Future<void> fetchNearbyPlaces(double latitude, double longitude) async {
     final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=rehabilitation+centers&location=$latitude,$longitude&radius=10&key=AIzaSyAWMMNeJdKEII83VTWZAwld3lWyo32osz8');
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=rehabilitation+centers&location=$latitude,$longitude&radius=10&key='');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
